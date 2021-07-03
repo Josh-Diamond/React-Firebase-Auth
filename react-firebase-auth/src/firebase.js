@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore"
 
 const app = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -10,5 +11,20 @@ const app = firebase.initializeApp({
   appId: process.env.REACT_APP_APP_ID,
 });
 
+const firestore = app.firestore()
+export const database = {
+  folders: firestore.collection('folders'),
+  files: firestore.collection('files'),
+  formatDoc: doc => {
+    return { id: doc.id, ...doc.data()}
+  },
+  getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp
+}
 export const auth = app.auth();
+// This will give access to entire firestore
+// But that's a lot of information to grant users
+// export const firestore = app.firestore()
+
+// instead export a part of it, called database
+
 export default app;
