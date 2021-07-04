@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore"
+import "firebase/storage"
 
 const app = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,6 +21,7 @@ export const database = {
   },
   getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp
 }
+export const storage = app.storage()
 export const auth = app.auth();
 // This will give access to entire firestore
 // But that's a lot of information to grant users
